@@ -1,0 +1,37 @@
+---
+pagination:
+  data: locales
+  size: 1
+  alias: lang
+permalink: "/{{ lang }}/projects/"
+lang: "{{ lang }}"
+---
+
+{% extends 'layout.html' %}
+
+{% set t = i18n[lang] %}
+{% set pageTitle = ( 'Проекты' if lang == 'ru' else 'Projects' ) %}
+{% set pageDesc = ( 'Кейсы и заметки' if lang == 'ru' else 'Cases and posts' ) %}
+
+{% block content %}
+  <h1>{{ pageTitle }}</h1>
+
+  {% if lang == 'ru' %}
+    <p>Кейсы и заметки в формате Markdown.</p>
+  {% else %}
+    <p>Cases and posts written in Markdown.</p>
+  {% endif %}
+
+  <div class="projects">
+    {% for post in collections.posts | reverse %}
+      {% if post.data.lang == lang %}
+        <a class="project" href="{{ post.url }}">
+          {% if post.data.cover %}
+            <img class="project__cover" src="{{ post.data.cover }}" alt="{{ post.data.title }}">
+          {% endif %}
+          <p class="project__title">{{ post.data.title }}</p>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

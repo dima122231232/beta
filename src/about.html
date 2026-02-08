@@ -1,0 +1,25 @@
+---
+pagination:
+  data: locales
+  size: 1
+  alias: lang
+permalink: "/{{ lang }}/about/"
+lang: "{{ lang }}"
+---
+
+{% extends 'layout.html' %}
+
+{% set t = i18n[lang] %}
+{% set pageTitle = ( 'Люди' if lang == 'ru' else 'People' ) %}
+
+{% block content %}
+  <h1>{{ pageTitle }}</h1>
+
+  {% if lang == 'ru' %}
+    <p>Направленный маркетинг означает ролевой феномен толпы.</p>
+    <p>Политическая социализация отражает индивидуальный маркетинг.</p>
+  {% else %}
+    <p>We combine strategy, design, and engineering to ship high-performing campaigns.</p>
+    <p>Small team, fast iterations, clean delivery.</p>
+  {% endif %}
+{% endblock %}

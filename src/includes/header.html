@@ -1,0 +1,33 @@
+{% set lang = lang | default('ru') %}
+{% set t = (i18n[lang] if i18n and i18n[lang] else {}) %}
+{% set base = '/' ~ lang %}
+{% set cur = page.url %}
+
+{# Build “same page” URLs for each language #}
+{% set ruUrl = cur | replace('/en/', '/ru/') %}
+{% set enUrl = cur | replace('/ru/', '/en/') %}
+
+{% set nav = [
+  { title: (t.nav.home if t.nav and t.nav.home else 'Главная'), href: base ~ '/' },
+  { title: (t.nav.projects if t.nav and t.nav.projects else 'Проекты'), href: base ~ '/projects/' },
+  { title: (t.nav.people if t.nav and t.nav.people else 'Люди'), href: base ~ '/about/' }
+] %}
+
+<header class="header">
+  <p>{{ t.brand if t.brand else 'Агентство Рогов и Ко.' }}</p>
+
+  <nav class="nav">
+    {% for link in nav %}
+      {% if link.href == page.url %}
+        <span>{{ link.title }}</span>
+      {% else %}
+        <a href="{{ link.href }}">{{ link.title }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+
+  <div class="lang-switch">
+    <a href="{{ ruUrl }}"{% if lang == 'ru' %} aria-current="page"{% endif %}>RU</a>
+    <a href="{{ enUrl }}"{% if lang == 'en' %} aria-current="page"{% endif %}>EN</a>
+  </div>
+</header>

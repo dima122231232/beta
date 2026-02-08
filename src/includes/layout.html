@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ lang | default('ru') }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ pageTitle if pageTitle else 'Р&К' }}</title>
+    <meta name="description" content="{{ pageDesc if pageDesc else 'Р&К — передовое рекламное агентство' }}">
+
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="stylesheet" href="/global.css" />
+  </head>
+  <body>
+    {% include 'header.html' %}
+
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="/script.js" defer></script>
+  </body>
+</html>

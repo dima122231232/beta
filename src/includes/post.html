@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% set pageTitle = title %}
+{% if description %}{% set pageDesc = description %}{% endif %}
+
+{% set lang = lang | default('ru') %}
+{% set base = '/' ~ lang %}
+
+{% block content %}
+  <p class="back">
+    <a href="{{ base }}/projects/">← {{ 'Back to projects' if lang == 'en' else 'Назад к проектам' }}</a>
+  </p>
+
+  <article class="post">
+    <h1>{{ title }}</h1>
+    {% if date %}<p class="post__meta">{{ date }}</p>{% endif %}
+    {{ content | safe }}
+  </article>
+{% endblock %}
